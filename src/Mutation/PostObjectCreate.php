@@ -10,10 +10,13 @@ use WPGraphQL\Data\PostObjectMutation;
 
 class PostObjectCreate {
 	public static function register_mutation( \WP_Post_Type $post_type_object ) {
-		register_graphql_mutation( 'create' . ucfirst( $post_type_object->graphql_single_name ), [
+
+		$mutation_name = 'create' . ucwords( $post_type_object->graphql_single_name );
+
+		register_graphql_mutation( $mutation_name, [
 			'inputFields'         => self::get_input_fields( $post_type_object ),
 			'outputFields'        => self::get_output_fields( $post_type_object ),
-			'mutateAndGetPayload' => self::mutate_and_get_payload( $post_type_object ),
+			'mutateAndGetPayload' => self::mutate_and_get_payload( $post_type_object, $mutation_name ),
 		] );
 	}
 	
@@ -158,11 +161,9 @@ class PostObjectCreate {
 
 	}
 
-	public static function mutate_and_get_payload( $post_type_object ) {
+	public static function mutate_and_get_payload( $post_type_object, $mutation_name ) {
 
-		return function ( $input, AppContext $context, ResolveInfo $info ) use ( $post_type_object ) {
-
-			$mutation_name = 'create' . $post_type_object->graphql_single_name;
+		return function ( $input, AppContext $context, ResolveInfo $info ) use ( $post_type_object, $mutation_name ) {
 
 			/**
 			 * Throw an exception if there's no input
