@@ -40,14 +40,7 @@ class PostObjectUpdate {
 
 	public static function get_output_fields( $post_type_object ) {
 
-		return [
-			$post_type_object->graphql_single_name => [
-				'type'    => $post_type_object->graphql_single_name,
-				'resolve' => function ( $payload ) use ( $post_type_object ) {
-					return DataSource::resolve_post_object( $payload['postObjectId'], $post_type_object->name );
-				},
-			],
-		];
+		return PostObjectCreate::get_output_fields( $post_type_object );
 
 	}
 
@@ -146,4 +139,5 @@ class PostObjectUpdate {
 		};
 
 	}
+
 }

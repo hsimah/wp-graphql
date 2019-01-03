@@ -7,14 +7,17 @@ use GraphQLRelay\Relay;
 
 class CommentDelete {
 	public static function register_mutation() {
+
 		register_graphql_mutation( 'deleteComment', [
 			'inputFields'         => self::get_input_fields(),
 			'outputFields'        => self::get_output_fields(),
 			'mutateAndGetPayload' => self::mutate_and_get_payload(),
 		] );
+
 	}
 	
 	public static function get_input_fields() {
+
 		return [
 			'id'          => [
 				'type'        => [
@@ -27,9 +30,11 @@ class CommentDelete {
 				'description' => __( 'Whether the comment should be force deleted instead of being moved to the trash', 'wp-graphql' ),
 			],
 		];
+
 	}
 
 	public static function get_output_fields() {
+
 		return [
 			'deletedId' => [
 				'type'        => 'Id',
@@ -50,9 +55,11 @@ class CommentDelete {
 				},
 			],
 		];
+
 	}
 
 	public static function mutate_and_get_payload() {
+
 		return function ( $input ) {
 			/**
 			 * Get the ID from the global ID
@@ -90,5 +97,7 @@ class CommentDelete {
 				'commentObject' => $comment_before_delete,
 			];
 		};
+		
 	}
+
 }

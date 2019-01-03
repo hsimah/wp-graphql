@@ -18,6 +18,7 @@ class PostObjectCreate {
 			'outputFields'        => self::get_output_fields( $post_type_object ),
 			'mutateAndGetPayload' => self::mutate_and_get_payload( $post_type_object, $mutation_name ),
 		] );
+
 	}
 	
 	public static function get_input_fields( $post_type_object ) {
@@ -146,6 +147,7 @@ class PostObjectCreate {
 		}
 
 		return $fields;
+
 	}
 		
 	public static function get_output_fields( $post_type_object ) {
@@ -154,7 +156,7 @@ class PostObjectCreate {
 			$post_type_object->graphql_single_name => [
 				'type'    => $post_type_object->graphql_single_name,
 				'resolve' => function ( $payload ) use ( $post_type_object ) {
-					return DataSource::resolve_post_object( $payload['id'], $post_type_object->name );
+					return DataSource::resolve_post_object( $payload['postObjectId'], $post_type_object->name );
 				},
 			],
 		];
@@ -314,9 +316,11 @@ class PostObjectCreate {
 			 * Return the post object
 			 */
 			return [
-				'id' => $post_id,
+				'postObjectId' => $post_id,
 			];
+
 		};
 
 	}
+
 }

@@ -16,9 +16,11 @@ class PostObjectDelete {
 			'outputFields'        => self::get_output_fields( $post_type_object ),
 			'mutateAndGetPayload' => self::mutate_and_get_payload( $post_type_object, $mutation_name ),
 		] );
+
 	}
 
 	public static function get_input_fields( $post_type_object ) {
+
 		return [
 			'id'          => [
 				'type'        => [
@@ -32,9 +34,11 @@ class PostObjectDelete {
 				'description' => __( 'Whether the object should be force deleted instead of being moved to the trash', 'wp-graphql' ),
 			],
 		];
+
 	}
 
 	public static function get_output_fields( $post_type_object ) {
+
 		return [
 			'deletedId'                            => [
 				'type'        => 'Id',
@@ -55,9 +59,11 @@ class PostObjectDelete {
 				},
 			],
 		];
+		
 	}
 
 	public static function mutate_and_get_payload( $post_type_object, $mutation_name ) {
+
 		return function ( $input ) use ( $post_type_object, $mutation_name ) {
 
 			/**
@@ -116,4 +122,5 @@ class PostObjectDelete {
 		};
 
 	}
+	
 }

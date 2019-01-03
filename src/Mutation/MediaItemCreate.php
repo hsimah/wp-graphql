@@ -10,14 +10,17 @@ use WPGraphQL\Data\MediaItemMutation;
 
 class MediaItemCreate {
 	public static function register_mutation() {
+
 		register_graphql_mutation( 'createMediaItem', [
 			'inputFields'         => self::get_input_fields(),
 			'outputFields'        => self::get_output_fields(),
 			'mutateAndGetPayload' => self::mutate_and_get_payload(),
 		] );
+
 	}
 
 	public static function get_input_fields() {
+
 		return [
 			'altText'       => [
 				'type'        => 'String',
@@ -76,9 +79,11 @@ class MediaItemCreate {
 				'description' => __( 'The WordPress post ID or the graphQL postId of the parent object', 'wp-graphql' ),
 			],
 		];
+
 	}
 
 	public static function get_output_fields() {
+
 		return [
 			'mediaItem' => [
 				'type'    => 'MediaItem',
@@ -87,9 +92,11 @@ class MediaItemCreate {
 				},
 			]
 		];
+
 	}
 
 	public static function mutate_and_get_payload() {
+
 		return function ( $input, AppContext $context, ResolveInfo $info ) {
 
 			/**
@@ -231,5 +238,7 @@ class MediaItemCreate {
 			];
 
 		};
+
 	}
+	
 }

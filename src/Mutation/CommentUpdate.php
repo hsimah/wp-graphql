@@ -10,14 +10,17 @@ use WPGraphQL\Data\CommentMutation;
 
 class CommentUpdate {
 	public static function register_mutation() {
+
 		register_graphql_mutation( 'updateComment', [
 			'inputFields'         => self::get_input_fields(),
 			'outputFields'        => self::get_output_fields(),
 			'mutateAndGetPayload' => self::mutate_and_get_payload(),
 		] );
+
 	}
 	
 	public static function get_input_fields() {
+
 		return array_merge( CommentCreate::get_input_fields(), [
 			'id' => [
 				'type'        => [
@@ -26,9 +29,11 @@ class CommentUpdate {
 				'description' => __( 'The ID of the comment being updated.', 'wp-graphql' ),
 			],
 		] );
+
 	}
 
 	public static function get_output_fields() {
+
 		return [
 			'comment' => [
 				'type'    => 'Comment',
@@ -37,9 +42,11 @@ class CommentUpdate {
 				},
 			],
 		];
+
 	}
 
 	public static function mutate_and_get_payload() {
+
 		return function ( $input, AppContext $context, ResolveInfo $info ) {
 			/**
 			 * Throw an exception if there's no input
@@ -95,5 +102,7 @@ class CommentUpdate {
 			 */
 			return [ 'id' => $comment_id ];
 		};
+
 	}
+	
 }

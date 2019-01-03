@@ -7,14 +7,17 @@ use GraphQLRelay\Relay;
 
 class CommentRestore {
 	public static function register_mutation() {
+
 		register_graphql_mutation( 'restoreComment', [
 			'inputFields'         => self::get_input_fields(),
 			'outputFields'        => self::get_output_fields(),
 			'mutateAndGetPayload' => self::mutate_and_get_payload(),
 		] );
+
 	}
 	
 	public static function get_input_fields() {
+
 		return [
 			'id' => [
 				'type'        => [
@@ -23,9 +26,11 @@ class CommentRestore {
 				'description' => __( 'The ID of the comment to be restored', 'wp-graphql' ),
 			],
 		];
+
 	}
 
-	public static get_output_fields() {
+	public static function get_output_fields() {
+
 		return [
 			'restoredId' => [
 				'type'        => 'Id',
@@ -46,9 +51,11 @@ class CommentRestore {
 				},
 			],
 		];
+
 	}
 
 	public static function mutate_and_get_payload() {
+
 		return function ( $input ) {
 			/**
 				* Get the ID from the global ID
@@ -78,5 +85,7 @@ class CommentRestore {
 				'commentObject' => $comment,
 			];
 		};
+
 	}
+	
 }

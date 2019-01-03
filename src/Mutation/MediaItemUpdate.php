@@ -11,14 +11,17 @@ use WPGraphQL\Data\MediaItemMutation;
 
 class MediaItemUpdate {
 	public static function register_mutation() {
+
 		register_graphql_mutation( 'updateMediaItem', [
 			'inputFields'         => self::get_input_fields(),
 			'outputFields'        => self::get_output_fields(),
 			'mutateAndGetPayload' => self::mutate_and_get_payload(),
 		] );
+
 	}
 
 	public static function get_input_fields() {
+
 		return array_merge(
 			MediaItemCreate::get_input_fields(),
 			[
@@ -31,9 +34,11 @@ class MediaItemUpdate {
 				],
 			]
 		);
+
 	}
 
 	public static function get_output_fields() {
+
 		return [
 			'mediaItem' => [
 				'type'    => 'MediaItem',
@@ -42,9 +47,11 @@ class MediaItemUpdate {
 				},
 			],
 		];
+
 	}
 
 	public static function mutate_and_get_payload() {
+
 		function ( $input, AppContext $context, ResolveInfo $info ) {
 
 			$post_type_object = get_post_type_object( 'attachment' );
@@ -125,5 +132,7 @@ class MediaItemUpdate {
 			];
 
 		};
+
 	}
+	
 }

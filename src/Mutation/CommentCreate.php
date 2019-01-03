@@ -9,14 +9,17 @@ use WPGraphQL\Data\CommentMutation;
 
 class CommentCreate {
 	public static function register_mutation() {
+
 		register_graphql_mutation( 'createComment', [
 			'inputFields'         => self::get_input_fields(),
 			'outputFields'        => self::get_output_fields(),
 			'mutateAndGetPayload' => self::mutate_and_get_payload(),
 		]);
+
 	}
 
 	public static function get_input_fields() {
+
 		return [
 			'postId'      => [
 				'type'        => 'Int',
@@ -67,9 +70,11 @@ class CommentCreate {
 				'description' => __( 'The approval status of the comment.', 'wp-graphql' ),
 			],
 		];
+
 	}
 
 	public static function get_output_fields() {
+
 		return [
 			'comment' => [
 				'type'        => 'Comment',
@@ -79,9 +84,11 @@ class CommentCreate {
 				},
 			]
 		];
+
 	}
 
 	public static function mutate_and_get_payload() {
+
 		return function ( $input, AppContext $context, ResolveInfo $info ) {
 			/**
 			 * Throw an exception if there's no input
@@ -152,5 +159,7 @@ class CommentCreate {
 			];
 
 		};
+		
 	}
+	
 }
