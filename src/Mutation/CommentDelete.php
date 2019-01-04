@@ -7,38 +7,33 @@ use GraphQLRelay\Relay;
 
 class CommentDelete {
 	public static function register_mutation() {
-
 		register_graphql_mutation( 'deleteComment', [
 			'inputFields'         => self::get_input_fields(),
 			'outputFields'        => self::get_output_fields(),
 			'mutateAndGetPayload' => self::mutate_and_get_payload(),
 		] );
-
 	}
 	
 	public static function get_input_fields() {
-
 		return [
 			'id'          => [
 				'type'        => [
 					'non_null' => 'ID',
 				],
-				'description' => __( 'The ID of the comment to be deleted', 'wp-graphql' ),
+				'description' => __( 'The deleted comment ID', 'wp-graphql' ),
 			],
 			'forceDelete' => [
 				'type'        => 'Boolean',
 				'description' => __( 'Whether the comment should be force deleted instead of being moved to the trash', 'wp-graphql' ),
 			],
 		];
-
 	}
 
 	public static function get_output_fields() {
-
 		return [
 			'deletedId' => [
 				'type'        => 'Id',
-				'description' => __( 'The ID of the deleted comment', 'wp-graphql' ),
+				'description' => __( 'The deleted comment ID', 'wp-graphql' ),
 				'resolve'     => function ( $payload ) {
 					$deleted = ( object ) $payload['commentObject'];
 
@@ -47,7 +42,7 @@ class CommentDelete {
 			],
 			'comment'   => [
 				'type'        => 'Comment',
-				'description' => __( 'The comment before it was deleted', 'wp-graphql' ),
+				'description' => __( 'The deleted comment object', 'wp-graphql' ),
 				'resolve'     => function ( $payload ) {
 					$deleted = ( object ) $payload['commentObject'];
 
@@ -55,11 +50,9 @@ class CommentDelete {
 				},
 			],
 		];
-
 	}
 
 	public static function mutate_and_get_payload() {
-
 		return function ( $input ) {
 			/**
 			 * Get the ID from the global ID
@@ -97,7 +90,5 @@ class CommentDelete {
 				'commentObject' => $comment_before_delete,
 			];
 		};
-		
 	}
-
 }

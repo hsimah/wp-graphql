@@ -7,17 +7,14 @@ use WPGraphQL\Data\DataSource;
 
 class MediaItemDelete {
 	public static function register_mutation() {
-
 		register_graphql_mutation( 'deleteMediaItem', [
 			'inputFields'         => self::get_input_fields(),
 			'outputFields'        => self::get_output_fields(),
 			'mutateAndGetPayload' => self::mutate_and_get_payload(),
 		]);
-
 	}
 
 	public static function get_input_fields() {
-
 		return [
 			'id'          => [
 				'type'        => [
@@ -30,11 +27,9 @@ class MediaItemDelete {
 				'description' => __( 'Whether the mediaItem should be force deleted instead of being moved to the trash', 'wp-graphql' ),
 			],
 		];
-
 	}
 
 	public static function get_output_fields() {
-
 		return [
 			'deletedId' => [
 				'type'        => 'ID',
@@ -55,13 +50,10 @@ class MediaItemDelete {
 				},
 			],
 		];
-
 	}
 
 	public static function mutate_and_get_payload() {
-
 		return function ( $input ) {
-
 			$post_type_object = get_post_type_object( 'attachment' );
 			$mutation_name = 'deleteMediaItem';
 
@@ -134,7 +126,5 @@ class MediaItemDelete {
 			];
 
 		};
-
 	}
-	
 }

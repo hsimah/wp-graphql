@@ -10,7 +10,6 @@ use WPGraphQL\Data\PostObjectMutation;
 
 class PostObjectUpdate {
 	public static function register_mutation( \WP_Post_Type $post_type_object ) {
-
 		$mutation_name = 'update' . ucwords( $post_type_object->graphql_single_name );
 
 		register_graphql_mutation( $mutation_name, [
@@ -18,11 +17,9 @@ class PostObjectUpdate {
 			'outputFields'        => self::get_output_fields( $post_type_object ),
 			'mutateAndGetPayload' => self::mutate_and_get_payload( $post_type_object, $mutation_name ),
 		] );
-
 	}
 
 	public static function get_input_fields( $post_type_object ) {
-
 		return array_merge(
 			PostObjectCreate::get_input_fields( $post_type_object ),
 			[
@@ -35,17 +32,13 @@ class PostObjectUpdate {
 				],
 			]
 			);
-
 	}
 
 	public static function get_output_fields( $post_type_object ) {
-
 		return PostObjectCreate::get_output_fields( $post_type_object );
-
 	}
 
 	public static function mutate_and_get_payload( $post_type_object, $mutation_name ) {
-
 		return function ( $input, AppContext $context, ResolveInfo $info ) use ( $post_type_object, $mutation_name ) {
 
 			$id_parts      = ! empty( $input['id'] ) ? Relay::fromGlobalId( $input['id'] ) : null;
@@ -135,9 +128,6 @@ class PostObjectUpdate {
 			return [
 				'postObjectId' => $post_id,
 			];
-
 		};
-
 	}
-
 }

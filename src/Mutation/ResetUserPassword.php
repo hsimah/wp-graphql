@@ -8,17 +8,14 @@ use WPGraphQL\AppContext;
 
 class ResetUserPassword {
 	public static function register_mutation() {
-
 		register_graphql_mutation( 'resetUserPassword', [
 			'inputFields' => self::get_input_fields(),
 			'outputFields' => self::get_output_fields(),
-			'mutateAndGetPayload' => self::mutateAndGetPayload(),
+			'mutateAndGetPayload' => self::mutate_and_get_payload(),
 		] );
-		
 	}
 
 	public static function get_input_fields() {
-
 		return [
 			'key'      => [
 				'type'        => 'String',
@@ -33,28 +30,13 @@ class ResetUserPassword {
 				'description' => __( 'The new password.', 'wp-graphql' ),
 			],
 		];
-
 	}
 
 	public static function get_output_fields() {
-
-		return [
-			'user' => [
-				'type' => 'User',
-				'resolve' => function( $payload ) {
-					$user = null;
-					if ( ! empty( $payload['id'] ) ) {
-						$user = get_user_by( 'ID', absint( $payload['id'] ) );
-					}
-					return $user;
-				},
-			],
-		];
-
+		return UserCreate::get_output_fields();
 	}
 
 	public static function mutate_and_get_payload() {
-
 		return function( $input, AppContext $context, ResolveInfo $info ) {
 
 			if ( empty( $input[ 'key' ] ) ) {
@@ -102,9 +84,6 @@ class ResetUserPassword {
 			return [
 				'id' => $user->ID,
 			];
-
 		};
-
 	}
-
 }
