@@ -192,6 +192,11 @@ if ( ! empty( $allowed_post_types ) && is_array( $allowed_post_types ) ) {
 			];
 		}
 
+        /**
+         * Add any user customized input args for this type
+         */
+		$post_by_args = apply_filters( 'graphql_' . lcfirst( $post_type_object->graphql_single_name ) . 'By_args', $post_by_args, $post_type_object );
+
 		register_graphql_field( 'RootQuery', $post_type_object->graphql_single_name . 'By', [
 			'type'        => $post_type_object->graphql_single_name,
 			'description' => sprintf( __( 'A %s object', 'wp-graphql' ), $post_type_object->graphql_single_name ),
@@ -215,6 +220,11 @@ if ( ! empty( $allowed_post_types ) && is_array( $allowed_post_types ) ) {
 				} elseif ( ! empty( $args['slug'] ) ) {
 					$slug        = esc_html( $args['slug'] );
 					$post_object = DataSource::get_post_object_by_uri( $slug, 'OBJECT', $post_type_object->name );
+				} else {
+                    /**
+                     * Invoke custom resolver if no default args have been supplied
+                     */
+					$post_object = apply_filters( 'graphql_' . lcfirst( $post_type_object->graphql_single_name ) . 'By_resolve', $post_type_object, $source, $args, $context, $info );
 				}
 
 				if ( empty( $post_object ) || is_wp_error( $post_object ) ) {
