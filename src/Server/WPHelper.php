@@ -3,6 +3,8 @@
 namespace WPGraphQL\Server;
 
 use GraphQL\Server\Helper;
+use GraphQL\Server\OperationParams;
+use GraphQL\Server\RequestError;
 
 /**
  * Extends GraphQL\Server\Helper to apply filters and parse query extensions.
@@ -28,6 +30,10 @@ class WPHelper extends Helper {
 		 * Allow the request data to be filtered. Previously this filter was only
 		 * applied to non-HTTP requests. Since 0.2.0, we will apply it to all
 		 * requests.
+		 *
+		 * This is a great place to hook if you are interested in implementing
+		 * persisted queries (and ends up being a bit more flexible than
+		 * graphql-php's built-in persistentQueryLoader).
 		 *
 		 * @param array $data An array containing the pieces of the data of the GraphQL request
 		 */
@@ -68,7 +74,7 @@ class WPHelper extends Helper {
 		}
 
 		// Apollo server/client compatibility: look for the query id in extensions
-		if ( isset( $params['extensions']['persistedQuery']['sha256Hash'] ) && ! isset( $params['query'] ) ) {
+		if ( isset( $params['extensions']['persistedQuery']['sha256Hash'] ) && ! isset( $params['queryId'] ) ) {
 			$params['queryId'] = $params['extensions']['persistedQuery']['sha256Hash'];
 			unset( $params['extensions']['persistedQuery'] );
 		}
