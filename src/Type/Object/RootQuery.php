@@ -239,6 +239,11 @@ if ( ! empty( $allowed_post_types ) && is_array( $allowed_post_types ) ) {
 					throw new UserError( __( 'The queried resource is not the correct type', 'wp-graphql' ) );
 				}
 
+				/**
+				 * Invoke custom security check on resolved post
+				 */
+				$post_object = apply_filters( 'graphql_' . lcfirst( $post_type_object->graphql_single_name ) . 'By_post_resolve', $post_type_object, $source, $args, $context, $info, $post_object );
+
 				return $post_object;
 
 			},
