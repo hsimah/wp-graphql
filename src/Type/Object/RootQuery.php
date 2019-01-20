@@ -224,7 +224,7 @@ if ( ! empty( $allowed_post_types ) && is_array( $allowed_post_types ) ) {
                     /**
                      * Invoke custom resolver if no default args have been supplied
                      */
-					$post_object = apply_filters( 'graphql_' . lcfirst( $post_type_object->graphql_single_name ) . 'By_resolve', $post_type_object, $source, $args, $context, $info );
+					$post_object = apply_filters( 'graphql_' . lcfirst( $post_type_object->graphql_single_name ) . 'By_resolve', $post_object, $post_type_object, $source, $args, $context, $info );
 				}
 
 				if ( empty( $post_object ) || is_wp_error( $post_object ) ) {
@@ -242,7 +242,7 @@ if ( ! empty( $allowed_post_types ) && is_array( $allowed_post_types ) ) {
 				/**
 				 * Invoke custom security check on resolved post
 				 */
-				$post_object = apply_filters( 'graphql_' . lcfirst( $post_type_object->graphql_single_name ) . 'By_post_resolve', $post_type_object, $source, $args, $context, $info, $post_object );
+				$post_object = apply_filters( 'graphql_' . lcfirst( $post_type_object->graphql_single_name ) . 'By_post_resolve', $post_object, $post_type_object, $source, $args, $context, $info );
 
 				return $post_object;
 
