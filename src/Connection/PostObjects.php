@@ -246,25 +246,25 @@ class PostObjects {
 			],
 			'parentIn'     => [
 				'type'        => [
-					'list_of' => 'Int',
+					'list_of' => 'ID',
 				],
 				'description' => __( 'Specify objects whose parent is in an array', 'wp-graphql' ),
 			],
 			'parentNotIn'  => [
 				'type'        => [
-					'list_of' => 'Int',
+					'list_of' => 'ID',
 				],
 				'description' => __( 'Specify posts whose parent is not in an array', 'wp-graphql' ),
 			],
 			'in'           => [
 				'type'        => [
-					'list_of' => 'Int',
+					'list_of' => 'ID',
 				],
 				'description' => __( 'Array of IDs for the objects to retrieve', 'wp-graphql' ),
 			],
 			'notIn'        => [
 				'type'        => [
-					'list_of' => 'Int',
+					'list_of' => 'ID',
 				],
 				'description' => __( 'Specify IDs NOT to retrieve. If this is used in the same query as "in",
 							it will be ignored', 'wp-graphql' ),
